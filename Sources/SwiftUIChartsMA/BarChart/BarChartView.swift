@@ -66,23 +66,16 @@ public struct BarChartView : View {
                         }
                     }else{
                         Text("\(self.currentValue, specifier: self.valueSpecifier)")
-                            .font(.headline)
+                            .font(self.customFont != nil ? self.customFont : .headline)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                     }
                     if(self.formSize == ChartForm.large && self.legend != nil && !showValue) {
-                        if (self.customFont != nil){
-                            Text(self.legend!)
-                                .font(self.customFont)
-                                .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor)
-                                .transition(.opacity)
-                                .animation(.easeOut)
-                        } else {
-                            Text(self.legend!)
-                                .font(.callout)
-                                .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor)
-                                .transition(.opacity)
-                                .animation(.easeOut)
-                        }
+                        Text(self.legend!)
+                            .font(.callout)
+                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor)
+                            .transition(.opacity)
+                            .animation(.easeOut)
+                        
                     }
                     Spacer()
                     self.cornerImage

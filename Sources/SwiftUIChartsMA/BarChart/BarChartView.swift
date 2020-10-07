@@ -55,15 +55,9 @@ public struct BarChartView : View {
             VStack(alignment: .leading){
                 HStack{
                     if(!showValue){
-                        if (self.customFont != nil){
-                            Text(self.title)
-                                .font(self.customFont)
-                                .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                        } else {
-                            Text(self.title)
-                                .font(.title)
-                                .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
-                        }
+                        Text(self.title)
+                            .font(self.customFont != nil ? self.customFont : .title)
+                            .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                     }else{
                         Text("\(self.currentValue, specifier: self.valueSpecifier)")
                             .font(self.customFont != nil ? self.customFont : .headline)

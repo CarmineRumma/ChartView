@@ -16,6 +16,8 @@ public struct LineView: View {
     public var darkModeStyle: ChartStyle
     public var valueSpecifier:String
     
+    public var customFont: Font?
+    
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var showLegend = false
     @State private var dragLocation:CGPoint = .zero
@@ -29,7 +31,8 @@ public struct LineView: View {
                 title: String? = nil,
                 legend: String? = nil,
                 style: ChartStyle = Styles.lineChartStyleOne,
-                valueSpecifier: String? = "%.1f") {
+                valueSpecifier: String? = "%.1f",
+                customFont: Font? = nil) {
         
         self.data = ChartData(points: data)
         self.title = title
@@ -37,6 +40,8 @@ public struct LineView: View {
         self.style = style
         self.valueSpecifier = valueSpecifier!
         self.darkModeStyle = style.darkModeStyle != nil ? style.darkModeStyle! : Styles.lineViewDarkMode
+        //self.customFont = Font.custom("Your-Font-Name", size: 48);
+        self.customFont = customFont;
     }
     
     public var body: some View {
@@ -44,9 +49,15 @@ public struct LineView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Group{
                     if (self.title != nil){
-                        Text(self.title!)
-                            .font(.title)
-                            .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                        if (self.customFont != nil){
+                            Text(self.title!)
+                                .font(self.customFont)
+                                .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                        } else {
+                            Text(self.title!)
+                                .font(.title)
+                                .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                        }
                     }
                     if (self.legend != nil){
                         Text(self.legend!)

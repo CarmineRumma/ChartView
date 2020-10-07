@@ -19,7 +19,7 @@ public struct BarChartView : View {
     public var dropShadow: Bool
     public var cornerImage: Image
     public var valueSpecifier:String
-    
+    public var customFont: Font?
     @State private var touchLocation: CGFloat = -1.0
     @State private var showValue: Bool = false
     @State private var showLabelValue: Bool = false
@@ -43,6 +43,7 @@ public struct BarChartView : View {
         self.dropShadow = dropShadow!
         self.cornerImage = cornerImage!
         self.valueSpecifier = valueSpecifier!
+        self.customFont = customFont;
     }
     
     public var body: some View {
@@ -54,9 +55,15 @@ public struct BarChartView : View {
             VStack(alignment: .leading){
                 HStack{
                     if(!showValue){
-                        Text(self.title)
-                            .font(.headline)
-                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                        if (self.customFont != nil){
+                            Text(self.title!)
+                                .font(self.customFont)
+                                .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                        } else {
+                            Text(self.title!)
+                                .font(.title)
+                                .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                        }
                     }else{
                         Text("\(self.currentValue, specifier: self.valueSpecifier)")
                             .font(.headline)

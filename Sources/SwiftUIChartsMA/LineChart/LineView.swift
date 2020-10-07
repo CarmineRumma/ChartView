@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct LineView: View {
-    @ObservedObject var data: ChartData
+    @ObservedObject public var data: ChartData
     public var title: String?
     public var legend: String?
     public var style: ChartStyle

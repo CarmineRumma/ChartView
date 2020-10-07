@@ -33,7 +33,7 @@ public struct BarChartView : View {
     var isFullWidth:Bool {
         return self.formSize == ChartForm.large
     }
-    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f"){
+    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f", customFont:Font? = nil){
         self.data = data
         self.title = title
         self.legend = legend
@@ -56,11 +56,11 @@ public struct BarChartView : View {
                 HStack{
                     if(!showValue){
                         if (self.customFont != nil){
-                            Text(self.title!)
+                            Text(self.title)
                                 .font(self.customFont)
                                 .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                         } else {
-                            Text(self.title!)
+                            Text(self.title)
                                 .font(.title)
                                 .bold().foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                         }

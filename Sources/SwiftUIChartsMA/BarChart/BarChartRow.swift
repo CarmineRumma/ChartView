@@ -24,14 +24,14 @@ public struct BarChartRow : View {
         GeometryReader { geometry in
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width)/CGFloat(self.data.count * 3)){
                 if (self.data.count == 0){
-                    RoundedRectangle(cornerRadius: 8)
-                                    .strokeBorder(
-                                        style: StrokeStyle(
-                                            lineWidth: 2,
-                                            dash: [15]
-                                        )
-                                    )
-                                    .foregroundColor(self.accentColor)
+                    ZStack {
+                        Path{ path in
+                                    path.move(to: CGPoint(x: 0, y: 0))
+                                    path.addLine(to: CGPoint(x: Int(geometry.frame(in: .local).width - 11), y: 0))
+                                }
+                                .stroke(style: StrokeStyle( lineWidth: 10, dash: [5]))
+                                .foregroundColor(Color(UIColor.blue))
+                    }
                 }
                 ForEach(0..<self.data.count, id: \.self) { i in
                     BarChartCell(value: self.normalizedValue(index: i),
@@ -54,6 +54,7 @@ public struct BarChartRow : View {
         return Double(self.data[index])/Double(self.maxValue)
     }
 }
+
 
 #if DEBUG
 struct ChartRow_Previews : PreviewProvider {

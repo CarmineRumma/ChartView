@@ -28,7 +28,7 @@ public struct BarChartRow : View {
                 ForEach(0..<self.data.count, id: \.self) { i in
                     if (Int(self.data[i]) == 0){
                         ZStack {
-                            ZeroLine(geoProx: geometry)
+                            ZeroLine(geoProx: geometry).scaleEffect(CGSize(width: 1, height: 1)).animation(.spring())
                         }
                         
                     }

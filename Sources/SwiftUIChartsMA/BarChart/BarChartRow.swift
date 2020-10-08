@@ -29,7 +29,7 @@ public struct BarChartRow : View {
                     if (Int(self.data[i]) == 0){
                         ZStack {
                             //ZeroLine(geoProx: geometry).scaleEffect(CGSize(width: 1, height: 1)).animation(.spring())
-                            RoundedRectangle(cornerRadius: 4).fill(accentColor).frame(width: 1, height: 1, alignment: .bottom)
+                            RoundedRectangle(cornerRadius: 4).stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round, miterLimit: 1, dash: [5], dashPhase: 1)).fill(Color.clear).frame(width: CGFloat(geometry.frame(in: .local).width - 11), height: 3, alignment: .bottom)
                         }
                         
                     }

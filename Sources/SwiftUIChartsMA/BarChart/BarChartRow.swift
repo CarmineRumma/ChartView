@@ -28,12 +28,7 @@ public struct BarChartRow : View {
                 ForEach(0..<self.data.count, id: \.self) { i in
                     if (Int(self.data[i]) == 0){
                         ZStack {
-                            Path{ path in
-                                        path.move(to: CGPoint(x: 0, y: 0))
-                                        path.addLine(to: CGPoint(x: Int(geometry.frame(in: .local).width - 11), y: 0))
-                                    }
-                                    .stroke(style: StrokeStyle( lineWidth: 10, dash: [5]))
-                                    .foregroundColor(Color(UIColor.blue))
+                            ZeroLine(geoProx: geometry)
                         }
                         
                     }
@@ -58,6 +53,21 @@ public struct BarChartRow : View {
     }
 }
 
+struct ZeroLine: View {
+    let geoProx: GeometryProxy
+
+    var body: some View {
+        Path{ path in
+            path.move(to: CGPoint(x: geoProx.size.width/2, y: geoProx.size.height/2))
+            path.addLine(to: CGPoint(x: geoProx.size.width/2 - geoProx.size.width/4, y: geoProx.size.height/2))
+
+        }
+        .stroke(style: StrokeStyle(lineWidth: 8.0, lineCap: .round))
+        .foregroundColor(.white)
+        .cornerRadius(10.0)
+        .zIndex(1.5)
+    }
+}
 
 #if DEBUG
 struct ChartRow_Previews : PreviewProvider {

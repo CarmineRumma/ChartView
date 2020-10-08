@@ -15,5 +15,18 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>SwiftUIChartsMA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>SwiftUIChartsMATests</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

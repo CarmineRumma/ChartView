@@ -20,6 +20,7 @@ public struct BarChartView : View {
     public var cornerImage: Image
     public var valueSpecifier:String
     public var customFont: Font?
+    public var cornerRadius: CGFloat?
     @State private var touchLocation: CGFloat = -1.0
     @State private var showValue: Bool = false
     @State private var showLabelValue: Bool = false
@@ -33,7 +34,8 @@ public struct BarChartView : View {
     var isFullWidth:Bool {
         return self.formSize == ChartForm.large
     }
-    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f", customFont:Font? = nil){
+    public init(data:ChartData, title: String, legend: String? = nil, style: ChartStyle = Styles.barChartStyleOrangeLight, form: CGSize? = ChartForm.medium, dropShadow: Bool? = true, cornerImage:Image? = Image(systemName: "waveform.path.ecg"), valueSpecifier: String? = "%.1f", customFont:Font? = nil,
+                cornerRadius:CGFloat? = 20.0){
         self.data = data
         self.title = title
         self.legend = legend
@@ -44,13 +46,14 @@ public struct BarChartView : View {
         self.cornerImage = cornerImage!
         self.valueSpecifier = valueSpecifier!
         self.customFont = customFont;
+        self.cornerRadius = cornerRadius;
     }
     
     public var body: some View {
         ZStack{
             Rectangle()
                 .fill(self.colorScheme == .dark ? self.darkModeStyle.backgroundColor : self.style.backgroundColor)
-                .cornerRadius(20)
+                .cornerRadius(self.cornerRadius!)
                 .shadow(color: self.style.dropShadowColor, radius: self.dropShadow ? 8 : 0)
             VStack(alignment: .leading){
                 HStack{

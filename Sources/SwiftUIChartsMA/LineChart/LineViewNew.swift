@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct LineView: View {
+public struct LineViewNew: View {
     @ObservedObject public var data: ChartData
     public var title: String?
     public var legend: String?
@@ -46,8 +46,8 @@ public struct LineView: View {
     
     public var body: some View {
         GeometryReader{ geometry in
-            VStack(alignment: .leading, spacing: 8) {
-                Group{
+            VStack(alignment: .leading, spacing: 0) {
+                HStack{
                     if (self.title != nil){
                         Text(self.title!)
                             .font(self.customFont != nil ? self.customFont : .title)
@@ -58,7 +58,7 @@ public struct LineView: View {
                             .font(.callout)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                     }
-                }.offset(x: 0, y: 20)
+                }.padding()
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
@@ -123,15 +123,3 @@ public struct LineView: View {
         return .zero
     }
 }
-
-struct LineView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Full chart", style: Styles.lineChartStyleOne)
-            
-            LineView(data: [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188], title: "Full chart", style: Styles.lineChartStyleOne)
-            
-        }
-    }
-}
-

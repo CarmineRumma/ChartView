@@ -22,8 +22,8 @@ public struct BarChartRow : View {
     @Binding var touchLocation: CGFloat
     public var body: some View {
         GeometryReader { geometry in
-            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width)/CGFloat(self.data.count * 3)){
-                if (self.data.count == 0){
+            if (self.data.count == 0){
+                HStack(alignment: .bottom){
                     ZStack {
                         Path{ path in
                                     path.move(to: CGPoint(x: 0, y: 0))
@@ -33,6 +33,9 @@ public struct BarChartRow : View {
                                 .foregroundColor(Color(UIColor.blue))
                     }
                 }
+            }
+            HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width)/CGFloat(self.data.count * 3)){
+                
                 ForEach(0..<self.data.count, id: \.self) { i in
                     BarChartCell(value: self.normalizedValue(index: i),
                                  index: i,

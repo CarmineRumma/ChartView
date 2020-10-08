@@ -22,21 +22,21 @@ public struct BarChartRow : View {
     @Binding var touchLocation: CGFloat
     public var body: some View {
         GeometryReader { geometry in
-            if (self.data.count == 0){
-                HStack(alignment: .bottom){
-                    ZStack {
-                        Path{ path in
-                                    path.move(to: CGPoint(x: 0, y: 0))
-                                    path.addLine(to: CGPoint(x: Int(geometry.frame(in: .local).width - 11), y: 0))
-                                }
-                                .stroke(style: StrokeStyle( lineWidth: 10, dash: [5]))
-                                .foregroundColor(Color(UIColor.blue))
-                    }
-                }
-            }
+            
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width)/CGFloat(self.data.count * 3)){
                 
                 ForEach(0..<self.data.count, id: \.self) { i in
+                    if (Int(self.data[i]) == 0){
+                        ZStack {
+                            Path{ path in
+                                        path.move(to: CGPoint(x: 0, y: 0))
+                                        path.addLine(to: CGPoint(x: Int(geometry.frame(in: .local).width - 11), y: 0))
+                                    }
+                                    .stroke(style: StrokeStyle( lineWidth: 10, dash: [5]))
+                                    .foregroundColor(Color(UIColor.blue))
+                        }
+                        
+                    }
                     BarChartCell(value: self.normalizedValue(index: i),
                                  index: i,
                                  width: Float(geometry.frame(in: .local).width - 11),

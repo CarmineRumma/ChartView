@@ -17,6 +17,7 @@ public struct LineViewNew: View {
     public var valueSpecifier:String
     
     public var customFont: Font?
+    public var padding: EdgeInsets?;
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var showLegend = false
@@ -32,7 +33,8 @@ public struct LineViewNew: View {
                 legend: String? = nil,
                 style: ChartStyle = Styles.lineChartStyleOne,
                 valueSpecifier: String? = "%.1f",
-                customFont: Font? = nil) {
+                customFont: Font? = nil,
+                padding: EdgeInsets? = EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)) {
         
         self.data = ChartData(points: data)
         self.title = title
@@ -42,6 +44,7 @@ public struct LineViewNew: View {
         self.darkModeStyle = style.darkModeStyle != nil ? style.darkModeStyle! : Styles.lineViewDarkMode
         //self.customFont = Font.custom("Your-Font-Name", size: 48);
         self.customFont = customFont;
+        self.padding = padding;
     }
     
     public var body: some View {
@@ -93,6 +96,7 @@ public struct LineViewNew: View {
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2, y: 36)
                 }
                 .frame(width: geometry.frame(in: .local).size.width, height: 240)
+                .padding(self.padding!)
                 .gesture(DragGesture()
                 .onChanged({ value in
                     self.dragLocation = value.location

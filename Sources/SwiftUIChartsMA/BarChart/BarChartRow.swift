@@ -23,6 +23,16 @@ public struct BarChartRow : View {
     public var body: some View {
         GeometryReader { geometry in
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width)/CGFloat(self.data.count * 3)){
+                if (self.data.count == 0){
+                    RoundedRectangle(cornerRadius: 8)
+                                    .strokeBorder(
+                                        style: StrokeStyle(
+                                            lineWidth: 2,
+                                            dash: [15]
+                                        )
+                                    )
+                                    .foregroundColor(self.accentColor)
+                }
                 ForEach(0..<self.data.count, id: \.self) { i in
                     BarChartCell(value: self.normalizedValue(index: i),
                                  index: i,

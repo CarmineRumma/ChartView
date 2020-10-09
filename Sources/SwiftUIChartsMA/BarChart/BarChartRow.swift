@@ -22,29 +22,27 @@ public struct BarChartRow : View {
     @Binding var touchLocation: CGFloat
     public var body: some View {
         GeometryReader { geometry in
-            
             HStack(alignment: .bottom, spacing: (geometry.frame(in: .local).width)/CGFloat(self.data.count * 3)){
                 
                 ForEach(0..<self.data.count, id: \.self) { i in
-                    if (Int(self.data[i]) == 0){
-                        ZStack {
-                            //ZeroLine(geoProx: geometry).scaleEffect(CGSize(width: 1, height: 1)).animation(.spring())
-                            RoundedRectangle(cornerRadius: 4).stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round, miterLimit: 1, dash: [5], dashPhase: 1)).fill(Color.clear).frame(width: CGFloat(geometry.frame(in: .local).width - 11), height: 3, alignment: .bottom)
-                        }
-                        
-                    }
-                    BarChartCell(value: self.normalizedValue(index: i),
-                                 index: i,
-                                 width: Float(geometry.frame(in: .local).width - 11),
-                                 numberOfDataPoints: self.data.count,
-                                 accentColor: self.accentColor,
-                                 gradient: self.gradient,
-                                 touchLocation: self.$touchLocation)
-                        .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.data.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.data.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
-                        .animation(.spring())
+                   // if (Int(self.data[i]) == 0){
+                        //ZeroLine(geoProx: geometry, dataCount: self.data.count)
+                   // } else {
+                        BarChartCell(value: self.normalizedValue(index: i),
+                                     index: i,
+                                     width: Float(geometry.frame(in: .local).width - 11),
+                                     numberOfDataPoints: self.data.count,
+                                     accentColor: self.accentColor,
+                                     gradient: self.gradient,
+                                     touchLocation: self.$touchLocation)
+                            .scaleEffect(self.touchLocation > CGFloat(i)/CGFloat(self.data.count) && self.touchLocation < CGFloat(i+1)/CGFloat(self.data.count) ? CGSize(width: 1.4, height: 1.1) : CGSize(width: 1, height: 1), anchor: .bottom)
+                            .animation(.spring())
+                   // }
                     
                 }
+                
             }
+            .overlay(Rectangle().frame(width: nil, height: 2, alignment: .bottom).foregroundColor(Color.gray), alignment: .bottom)
             .padding([.top, .leading, .trailing], 10)
         }
     }
@@ -56,17 +54,19 @@ public struct BarChartRow : View {
 
 struct ZeroLine: View {
     let geoProx: GeometryProxy
-
+    let dataCount: Int
     var body: some View {
-        Path{ path in
-            path.move(to: CGPoint(x: geoProx.size.width/2, y: geoProx.size.height/2))
-            path.addLine(to: CGPoint(x: geoProx.size.width/2 - geoProx.size.width/4, y: geoProx.size.height/2))
+        ZStack {
+            Path{ path in
+                path.move(to: CGPoint(x: 0, y: geoProx.size.height-12))
+                path.addLine(to: CGPoint(x: CGFloat(Float(geoProx.frame(in: .local).width - 11)), y: geoProx.size.height-12))
 
+            }
+            .stroke(style: StrokeStyle(lineWidth: 4.0, lineCap: .round, dash: [4, 6]))
+            .foregroundColor(.black)
+            .cornerRadius(1.0)
+            .zIndex(1.5)
         }
-        .stroke(style: StrokeStyle(lineWidth: 8.0, lineCap: .round))
-        .foregroundColor(.white)
-        .cornerRadius(10.0)
-        .zIndex(1.5)
     }
 }
 
@@ -74,8 +74,7 @@ struct ZeroLine: View {
 struct ChartRow_Previews : PreviewProvider {
     static var previews: some View {
         Group {
-            BarChartRow(data: [0], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
-            BarChartRow(data: [8,23,54,32,12,37,7], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
+            BarChartRow(data: [0, 5, 10], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
         }
     }
 }

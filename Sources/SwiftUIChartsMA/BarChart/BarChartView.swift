@@ -143,11 +143,9 @@ public struct BarChartView : View {
 
 #if DEBUG
 struct ChartView_Previews : PreviewProvider {
+
     static var previews: some View {
-        BarChartView(data: TestData.values ,
-                     title: "Model 3 sales",
-                     legend: "Quarterly",
-                     valueSpecifier: "%.0f")
+        BarChartView(data: ChartData(values: [("2018 Q4",63150), ("2019 Q1",50900), ("2019 Q2",77550), ("2019 Q3",79600),  ("2019 Q4",0 ), ("2019 Q4",92550)]), title: "Test", legend: "Quarterly", form: CGSize(width: UIScreen.main.bounds.width, height: 300), dropShadow: false, valueSpecifier: "%.1f EUR", cornerRadius: 0)
     }
 }
 #endif

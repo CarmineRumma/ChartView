@@ -63,7 +63,8 @@ public struct Styles {
         secondGradientColor: Colors.OrangeEnd,
         textColor: Color.black,
         legendTextColor: Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let barChartStyleOrangeLight = ChartStyle(
         backgroundColor: Color.white,
@@ -71,7 +72,8 @@ public struct Styles {
         secondGradientColor: Colors.OrangeEnd,
         textColor: Color.black,
         legendTextColor: Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let barChartStyleOrangeDark = ChartStyle(
         backgroundColor: Color.black,
@@ -79,7 +81,8 @@ public struct Styles {
         secondGradientColor: Colors.OrangeEnd,
         textColor: Color.white,
         legendTextColor: Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let barChartStyleNeonBlueLight = ChartStyle(
         backgroundColor: Color.white,
@@ -87,7 +90,8 @@ public struct Styles {
         secondGradientColor: Colors.GradientPurple,
         textColor: Color.black,
         legendTextColor: Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let barChartStyleNeonBlueDark = ChartStyle(
         backgroundColor: Color.black,
@@ -95,7 +99,8 @@ public struct Styles {
         secondGradientColor: Colors.GradientPurple,
         textColor: Color.white,
         legendTextColor: Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let barChartMidnightGreenDark = ChartStyle(
         backgroundColor: Color(hexString: "#36534D"), //3B5147, 313D34
@@ -103,7 +108,8 @@ public struct Styles {
         secondGradientColor: Color(hexString: "#FFCA04"),
         textColor: Color.white,
         legendTextColor: Color(hexString: "#D2E5E1"),
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let barChartMidnightGreenLight = ChartStyle(
         backgroundColor: Color.white,
@@ -111,7 +117,8 @@ public struct Styles {
         secondGradientColor: Color(hexString: "#50675D"),
         textColor: Color.black,
         legendTextColor:Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let pieChartStyleOne = ChartStyle(
         backgroundColor: Color.white,
@@ -119,7 +126,8 @@ public struct Styles {
         secondGradientColor: Colors.OrangeStart,
         textColor: Color.black,
         legendTextColor: Color.gray,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
     
     public static let lineViewDarkMode = ChartStyle(
         backgroundColor: Color.black,
@@ -127,7 +135,8 @@ public struct Styles {
         secondGradientColor: Colors.OrangeEnd,
         textColor: Color.white,
         legendTextColor: Color.white,
-        dropShadowColor: Color.gray)
+        dropShadowColor: Color.gray,
+        axisColor: Color.gray)
 }
 
 public struct ChartForm {
@@ -153,24 +162,27 @@ public class ChartStyle {
     public var textColor: Color
     public var legendTextColor: Color
     public var dropShadowColor: Color
+    public var axisColor: Color
     public weak var darkModeStyle: ChartStyle?
     
-    public init(backgroundColor: Color, accentColor: Color, secondGradientColor: Color, textColor: Color, legendTextColor: Color, dropShadowColor: Color){
+    public init(backgroundColor: Color, accentColor: Color, secondGradientColor: Color, textColor: Color, legendTextColor: Color, dropShadowColor: Color, axisColor: Color){
         self.backgroundColor = backgroundColor
         self.accentColor = accentColor
         self.gradientColor = GradientColor(start: accentColor, end: secondGradientColor)
         self.textColor = textColor
         self.legendTextColor = legendTextColor
         self.dropShadowColor = dropShadowColor
+        self.axisColor = axisColor;
     }
     
-    public init(backgroundColor: Color, accentColor: Color, gradientColor: GradientColor, textColor: Color, legendTextColor: Color, dropShadowColor: Color){
+    public init(backgroundColor: Color, accentColor: Color, gradientColor: GradientColor, textColor: Color, legendTextColor: Color, dropShadowColor: Color, axisColor: Color){
         self.backgroundColor = backgroundColor
         self.accentColor = accentColor
         self.gradientColor = gradientColor
         self.textColor = textColor
         self.legendTextColor = legendTextColor
         self.dropShadowColor = dropShadowColor
+        self.axisColor = axisColor;
     }
     
     public init(formSize: CGSize){
@@ -180,6 +192,7 @@ public class ChartStyle {
         self.legendTextColor = Color.gray
         self.textColor = Color.black
         self.dropShadowColor = Color.gray
+        self.axisColor = Color.gray;
     }
 }
 

@@ -11,6 +11,7 @@ import SwiftUI
 public struct BarChartRow : View {
     var data: [Double]
     var accentColor: Color
+    var axisColor: Color?
     var gradient: GradientColor?
     
     var maxValue: Double {
@@ -42,7 +43,12 @@ public struct BarChartRow : View {
                 }
                 
             }
-            .overlay(Rectangle().frame(width: nil, height: 2, alignment: .bottom).foregroundColor(Color.gray), alignment: .bottom)
+            .overlay(
+                Rectangle()
+                    .frame(width: geometry.size.width - 22 + 2, height: 1, alignment: .bottom)
+                    .cornerRadius(1.0)
+                    .offset(x: -2, y: 0)
+                .foregroundColor(axisColor), alignment: .bottom)
             .padding([.top, .leading, .trailing], 10)
         }
     }
@@ -74,7 +80,7 @@ struct ZeroLine: View {
 struct ChartRow_Previews : PreviewProvider {
     static var previews: some View {
         Group {
-            BarChartRow(data: [0, 5, 10], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
+            BarChartRow(data: [10, 5, 10], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
         }
     }
 }

@@ -48,7 +48,7 @@ public struct BarChartRow : View {
                     .frame(width: geometry.size.width - 22 + 4, height: 1, alignment: .bottom)
                     .cornerRadius(1.0)
                     .offset(x: -2, y: 0)
-                .foregroundColor(axisColor), alignment: .bottom)
+                    .foregroundColor(self.axisColor), alignment: .bottom)
             .padding([.top, .leading, .trailing], 10)
         }
     }
@@ -80,7 +80,7 @@ struct ZeroLine: View {
 struct ChartRow_Previews : PreviewProvider {
     static var previews: some View {
         Group {
-            BarChartRow(data: [10, 5, 10], accentColor: Colors.OrangeStart, touchLocation: .constant(-1))
+            BarChartRow(data: [10, 5, 10], accentColor: Colors.OrangeStart, axisColor: Color.yellow, touchLocation: .constant(-1))
         }
     }
 }

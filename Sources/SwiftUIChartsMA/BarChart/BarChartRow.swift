@@ -45,7 +45,7 @@ public struct BarChartRow : View {
             }
             .overlay(
                 Rectangle()
-                    .frame(width: geometry.size.width - 22 + 2, height: 1, alignment: .bottom)
+                    .frame(width: geometry.size.width - 22 + 4, height: 1, alignment: .bottom)
                     .cornerRadius(1.0)
                     .offset(x: -2, y: 0)
                 .foregroundColor(axisColor), alignment: .bottom)

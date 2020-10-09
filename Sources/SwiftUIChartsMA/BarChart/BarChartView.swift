@@ -75,8 +75,7 @@ public struct BarChartView : View {
                         
                     }
                     Spacer()
-                    self.cornerImage
-                        .imageScale(.large)
+                    self.cornerImage.resizable().frame(width: 30.0, height: 30.0, alignment: .center)
                         .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                 }.padding()
                 BarChartRow(data: data.points.map{$0.1},

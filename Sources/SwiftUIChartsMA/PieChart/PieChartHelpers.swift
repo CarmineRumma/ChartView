@@ -39,3 +39,9 @@ func degree(for point: CGPoint, inCircleRect circleRect: CGRect) -> Double {
     
     return 0
 }
+
+struct PieChartHelpers_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}

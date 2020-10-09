@@ -85,7 +85,7 @@ public struct BarChartView : View {
                             touchLocation: self.$touchLocation)
                 if self.legend != nil  && self.formSize == ChartForm.medium && !self.showLabelValue{
                     Text(self.legend!)
-                        .font(.headline)
+                        .font(self.customFont != nil ? self.customFont : .headline)
                         .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                         .padding()
                 }else if (self.data.valuesGiven && self.getCurrentValue() != nil) {

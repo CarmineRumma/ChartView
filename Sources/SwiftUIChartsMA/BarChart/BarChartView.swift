@@ -62,7 +62,7 @@ public struct BarChartView : View {
                             .font(self.customFont != nil ? self.customFont : .title)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                     }else{
-                        Text("\(self.currentValue, specifier: self.valueSpecifier)")
+                        Text(self.valueSpecifier == "%d" ? "\(Int(self.currentValue))" : "\(self.currentValue, specifier: self.valueSpecifier)")
                             .font(self.customFont != nil ? self.customFont : .headline)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
                     }

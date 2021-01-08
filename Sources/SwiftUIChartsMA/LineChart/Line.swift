@@ -80,7 +80,7 @@ public struct Line: View {
             .onDisappear {
                 self.showFull = false
             }
-            .drawingGroup()
+            //.drawingGroup()
             if(self.showIndicator) {
                 IndicatorPoint()
                     .position(self.getClosestPointOnPath(touchLocation: self.touchLocation))

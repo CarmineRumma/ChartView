@@ -98,13 +98,13 @@ public struct LineView: View {
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2, y: self.initialY! - 4)
                 }
-                .frame(width: geometry.frame(in: .local).size.width, height: self.customHeight)
+                .frame(width: geometry.frame(in: .local).size.width, height: self.customHeight!)
                 .gesture(DragGesture()
                 .onChanged({ value in
                     self.dragLocation = value.location
                     self.indicatorLocation = CGPoint(x: max(value.location.x-30,0), y: 32)
                     self.opacity = 1
-                    self.closestPoint = self.getClosestDataPoint(toPoint: value.location, width: geometry.frame(in: .local).size.width-30, height: self.customHeight)
+                    self.closestPoint = self.getClosestDataPoint(toPoint: value.location, width: geometry.frame(in: .local).size.width-30, height: self.customHeight!)
                     self.hideHorizontalLines = true
                 })
                 .onEnded({ value in

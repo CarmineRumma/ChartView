@@ -18,6 +18,7 @@ public struct LineView: View {
     
     public var customFont: Font?
     public var initialY: CGFloat?
+    public var customHeight: CGFloat?
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var showLegend = false
@@ -34,7 +35,8 @@ public struct LineView: View {
                 style: ChartStyle = Styles.lineChartStyleOne,
                 valueSpecifier: String? = "%.1f",
                 customFont: Font? = nil,
-                initialY:CGFloat = 40) {
+                initialY:CGFloat = 40,
+                customHeight:CGFloat = 240) {
         
         self.data = ChartData(points: data)
         self.title = title
@@ -45,6 +47,7 @@ public struct LineView: View {
         //self.customFont = Font.custom("Your-Font-Name", size: 48);
         self.customFont = customFont;
         self.initialY = initialY;
+        self.customHeight = customHeight;
     }
     
     public var body: some View {
@@ -89,25 +92,25 @@ public struct LineView: View {
                             self.showLegend = false
                         }
                     }
-                    .frame(width: geometry.frame(in: .local).size.width, height: 240)
+                    .frame(width: geometry.frame(in: .local).size.width, height: self.customHeight)
                     .offset(x: 0, y: self.initialY! )
                     MagnifierRect(currentNumber: self.$currentDataNumber, valueSpecifier: self.valueSpecifier)
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2, y: self.initialY! - 4)
                 }
-                .frame(width: geometry.frame(in: .local).size.width, height: 240)
+                .frame(width: geometry.frame(in: .local).size.width, height: self.customHeight)
                 .gesture(DragGesture()
                 .onChanged({ value in
                     self.dragLocation = value.location
                     self.indicatorLocation = CGPoint(x: max(value.location.x-30,0), y: 32)
                     self.opacity = 1
-                    self.closestPoint = self.getClosestDataPoint(toPoint: value.location, width: geometry.frame(in: .local).size.width-30, height: 240)
+                    self.closestPoint = self.getClosestDataPoint(toPoint: value.location, width: geometry.frame(in: .local).size.width-30, height: self.customHeight)
                     self.hideHorizontalLines = true
                 })
-                    .onEnded({ value in
-                        self.opacity = 0
-                        self.hideHorizontalLines = false
-                    })
+                .onEnded({ value in
+                    self.opacity = 0
+                    self.hideHorizontalLines = false
+                })
                 )
             }
         }

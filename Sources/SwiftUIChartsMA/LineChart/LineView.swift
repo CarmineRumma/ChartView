@@ -17,6 +17,7 @@ public struct LineView: View {
     public var valueSpecifier:String
     
     public var customFont: Font?
+    public var initialY: CGFloat?
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var showLegend = false
@@ -32,7 +33,8 @@ public struct LineView: View {
                 legend: String? = nil,
                 style: ChartStyle = Styles.lineChartStyleOne,
                 valueSpecifier: String? = "%.1f",
-                customFont: Font? = nil) {
+                customFont: Font? = nil,
+                initialY:CGFloat = 40) {
         
         self.data = ChartData(points: data)
         self.title = title
@@ -42,6 +44,7 @@ public struct LineView: View {
         self.darkModeStyle = style.darkModeStyle != nil ? style.darkModeStyle! : Styles.lineViewDarkMode
         //self.customFont = Font.custom("Your-Font-Name", size: 48);
         self.customFont = customFont;
+        self.initialY = initialY;
     }
     
     public var body: some View {
@@ -87,7 +90,7 @@ public struct LineView: View {
                         }
                     }
                     .frame(width: geometry.frame(in: .local).size.width, height: 240)
-                    .offset(x: 0, y: 40 )
+                    .offset(x: 0, y: self.initialY! )
                     MagnifierRect(currentNumber: self.$currentDataNumber, valueSpecifier: self.valueSpecifier)
                         .opacity(self.opacity)
                         .offset(x: self.dragLocation.x - geometry.frame(in: .local).size.width/2, y: 36)
@@ -127,7 +130,7 @@ public struct LineView: View {
 struct LineView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Full chart", style: Styles.lineChartStyleOne)
+            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Full chart", style: Styles.lineChartStyleOne, initialY: 0)
             
             LineView(data: [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188], title: "Full chart", style: Styles.lineChartStyleOne)
             

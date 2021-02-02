@@ -1,5 +1,5 @@
 import XCTest
-@testable import SwiftUIChartsMA
+//@testable import SwiftUIChartsMA
 
 final class SwiftUIChartsMATests: XCTestCase {
     func testExample() {

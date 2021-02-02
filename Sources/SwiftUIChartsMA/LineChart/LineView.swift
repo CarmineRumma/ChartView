@@ -19,6 +19,7 @@ public struct LineView: View {
     public var customFont: Font?
     public var initialY: CGFloat?
     public var customHeight: CGFloat?
+    public var showBackground:Bool = false;
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var showLegend = false
@@ -36,7 +37,8 @@ public struct LineView: View {
                 valueSpecifier: String? = "%.1f",
                 customFont: Font? = nil,
                 initialY:CGFloat = 40,
-                customHeight:CGFloat = 240) {
+                customHeight:CGFloat = 240,
+                showBackground:Bool = false) {
         
         self.data = ChartData(points: data)
         self.title = title
@@ -48,6 +50,7 @@ public struct LineView: View {
         self.customFont = customFont;
         self.initialY = initialY;
         self.customHeight = customHeight;
+        self.showBackground = showBackground;
     }
     
     public var body: some View {
@@ -64,7 +67,7 @@ public struct LineView: View {
                             .font(.callout)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                     }
-                }.offset(x: 0, y: 20)
+                }.offset(x: 40, y: 0)
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()
@@ -81,8 +84,8 @@ public struct LineView: View {
                              showIndicator: self.$hideHorizontalLines,
                              minDataValue: .constant(nil),
                              maxDataValue: .constant(nil),
-                             showBackground: false,
-                             gradient: self.style.gradientColor
+                             gradient: self.style.gradientColor,
+                             customBackground: self.showBackground ? LinearGradient(gradient: Gradient(colors: [Color(hexString: "#E61B72"), .white]), startPoint: .bottom, endPoint: .top) : nil
                         )
                         .offset(x: 30, y: -20)
                         .onAppear(){
@@ -133,7 +136,9 @@ public struct LineView: View {
 struct LineView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Full chart", style: Styles.lineChartStyleOne, initialY: 0)
+            LineView(data: [8,23,54,32,12,37,7,23,43], title: "Full chart", style: Styles.lineChartStyleOne, initialY: 0, showBackground: true)
+            
+            LineView(data: [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188], title: "Full chart", style: Styles.lineChartStyleOne);
             
             LineView(data: [282.502, 284.495, 283.51, 285.019, 285.197, 286.118, 288.737, 288.455, 289.391, 287.691, 285.878, 286.46, 286.252, 284.652, 284.129, 284.188], title: "Full chart", style: Styles.lineChartStyleOne)
             

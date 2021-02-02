@@ -16,14 +16,13 @@ public struct Line: View {
     @Binding var minDataValue: Double?
     @Binding var maxDataValue: Double?
     
+    @State private var showFull: Bool = false;
     
-    @State private var lineGradientBackground: LinearGradient?
-    @State private var showFull: Bool = true;
-    @State private var showBackground: Bool = true;
     var gradient: GradientColor = GradientColor(start: Colors.GradientPurple, end: Colors.GradientNeonBlue)
     var index:Int = 0
     let padding:CGFloat = 30
-    var curvedLines: Bool = true
+    var curvedLines: Bool = true;
+    var showBackground: Bool = false;
     var customBackground: LinearGradient? = nil
     var stepWidth: CGFloat {
         if data.points.count < 2 {
@@ -35,11 +34,6 @@ public struct Line: View {
         var min: Double?
         var max: Double?
         let points = self.data.onlyPoints();
-        if (self.customBackground != nil){
-            lineGradientBackground = customBackground;
-        } else {
-            lineGradientBackground = LinearGradient(gradient: Gradient(colors: [Colors.GradientUpperBlue, .white]), startPoint: .bottom, endPoint: .top);
-        }
         if minDataValue != nil && maxDataValue != nil {
             min = minDataValue!
             max = maxDataValue!
@@ -69,9 +63,9 @@ public struct Line: View {
     
     public var body: some View {
         ZStack {
-            if(self.customBackground != nil){ //self.showFull && self.showBackground
+            if(self.showFull && self.showBackground){ //self.showFull && self.showBackground
                 self.closedPath
-                    .fill(self.customBackground!)
+                    .fill(self.customBackground != nil ? self.customBackground! : LinearGradient(gradient: Gradient(colors: [Colors.GradientUpperBlue, .white]), startPoint: .bottom, endPoint: .top))
                     .rotationEffect(.degrees(180), anchor: .center)
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                     .transition(.opacity)
@@ -114,7 +108,11 @@ struct Line_Previews: PreviewProvider {
             }.frame(width: 320, height: 160)
             
             GeometryReader{ geometry in
-                Line(data: ChartData(points: [12,-230,10,254]), frame: .constant(geometry.frame(in: .local)), touchLocation: .constant(CGPoint(x: 100, y: 12)), showIndicator: .constant(true), minDataValue: .constant(nil), maxDataValue: .constant(nil), customBackground: LinearGradient(gradient: Gradient(colors: [Colors.GradientPurple, .white]), startPoint: .bottom, endPoint: .top));
+                Line(data: ChartData(points: [12,-230,10,254]), frame: .constant(geometry.frame(in: .local)), touchLocation: .constant(CGPoint(x: 100, y: 12)), showIndicator: .constant(true), minDataValue: .constant(nil), maxDataValue: .constant(nil), showBackground: true);
+            }.frame(width: 320, height: 160)
+            
+            GeometryReader{ geometry in
+                Line(data: ChartData(points: [12,-230,10,254]), frame: .constant(geometry.frame(in: .local)), touchLocation: .constant(CGPoint(x: 100, y: 12)), showIndicator: .constant(true), minDataValue: .constant(nil), maxDataValue: .constant(nil), showBackground: true, customBackground: LinearGradient(gradient: Gradient(colors: [Colors.color1Accent, .white]), startPoint: .bottom, endPoint: .top));
             }.frame(width: 320, height: 160)
         }
        

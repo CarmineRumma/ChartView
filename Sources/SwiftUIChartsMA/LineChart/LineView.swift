@@ -17,6 +17,7 @@ public struct LineView: View {
     public var valueSpecifier:String
     
     public var customFont: Font?
+    public var customLegendFont: Font?
     public var initialY: CGFloat?
     public var customHeight: CGFloat?
     public var showBackground:Bool = false;
@@ -37,6 +38,7 @@ public struct LineView: View {
                 style: ChartStyle = Styles.lineChartStyleOne,
                 valueSpecifier: String? = "%.1f",
                 customFont: Font? = nil,
+                customLegendFont: Font? = nil,
                 initialY:CGFloat = 40,
                 customHeight:CGFloat = 240,
                 showBackground:Bool = false,
@@ -50,6 +52,7 @@ public struct LineView: View {
         self.darkModeStyle = style.darkModeStyle != nil ? style.darkModeStyle! : Styles.lineViewDarkMode
         //self.customFont = Font.custom("Your-Font-Name", size: 48);
         self.customFont = customFont;
+        self.customLegendFont = customLegendFont;
         self.initialY = initialY;
         self.customHeight = customHeight;
         self.showBackground = showBackground;
@@ -67,10 +70,10 @@ public struct LineView: View {
                     }
                     if (self.legend != nil){
                         Text(self.legend!)
-                            .font(.callout)
+                            .font(self.customLegendFont != nil ? self.customLegendFont : .callout)
                             .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
                     }
-                }.offset(x: 40, y: 0)
+                }.offset(x: 30, y: 0)
                 ZStack{
                     GeometryReader{ reader in
                         Rectangle()

@@ -127,6 +127,15 @@ public struct Styles {
         textColor: Color.black,
         legendTextColor: Color.gray,
         dropShadowColor: Color.gray,
+        axisColor: Color.gray);
+    
+    public static let pieChartStyleMinimal = ChartStyle(
+        backgroundColor: Color.clear,
+        accentColor: Colors.OrangeEnd,
+        secondGradientColor: Colors.OrangeStart,
+        textColor: Color.black,
+        legendTextColor: Color.gray,
+        dropShadowColor: Color.gray,
         axisColor: Color.gray)
     
     public static let lineViewDarkMode = ChartStyle(

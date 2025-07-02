@@ -17,7 +17,7 @@ public struct BarChartView : View {
     public var darkModeStyle: ChartStyle
     public var formSize:CGSize
     public var dropShadow: Bool
-    public var cornerImage: Image
+    public var cornerImage: Image?
     public var valueSpecifier:String
     public var customFont: Font?
     public var cornerRadius: CGFloat?
@@ -43,7 +43,7 @@ public struct BarChartView : View {
         self.darkModeStyle = style.darkModeStyle != nil ? style.darkModeStyle! : Styles.barChartStyleOrangeDark
         self.formSize = form!
         self.dropShadow = dropShadow!
-        self.cornerImage = cornerImage!
+        self.cornerImage = cornerImage
         self.valueSpecifier = valueSpecifier!
         self.customFont = customFont;
         self.cornerRadius = cornerRadius;
@@ -75,15 +75,17 @@ public struct BarChartView : View {
                         
                     }
                     Spacer()
-                    self.cornerImage.renderingMode(.template).resizable().frame(width: 30.0, height: 30.0, alignment: .center)
-                        .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor)
+                    if(self.cornerImage != nil){
+                        self.cornerImage!.renderingMode(.template).resizable().frame(width: 30.0, height: 30.0, alignment: .center)
+                            .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.textColor : self.style.textColor);
+                    }
                 }.padding()
                 BarChartRow(data: data.points.map{$0.1},
                             accentColor: self.colorScheme == .dark ? self.darkModeStyle.accentColor : self.style.accentColor,
                             axisColor: self.colorScheme == .dark ? self.darkModeStyle.axisColor : self.style.axisColor,
                             gradient: self.colorScheme == .dark ? self.darkModeStyle.gradientColor : self.style.gradientColor,
                             touchLocation: self.$touchLocation)
-                if self.legend != nil  && self.formSize == ChartForm.medium && !self.showLabelValue{
+                if self.legend != nil  && self.formSize != ChartForm.large && !self.showLabelValue{
                     Text(self.legend!)
                         .font(self.customFont != nil ? self.customFont : .headline)
                         .foregroundColor(self.colorScheme == .dark ? self.darkModeStyle.legendTextColor : self.style.legendTextColor)
@@ -145,7 +147,7 @@ public struct BarChartView : View {
 struct ChartView_Previews : PreviewProvider {
 
     static var previews: some View {
-        BarChartView(data: ChartData(values: [("2018 Q4",63150), ("2019 Q1",50900), ("2019 Q2",77550), ("2019 Q3",79600),  ("2019 Q4",0 ), ("2019 Q4",92550)]), title: "Test", legend: "Quarterly", form: CGSize(width: UIScreen.main.bounds.width, height: 300), dropShadow: false, valueSpecifier: "%.1f EUR", cornerRadius: 0)
+        BarChartView(data: ChartData(values: [("Lun",63150), ("Mar Q1",50900), ("2019 Q2",77550), ("2019 Q3",79600),  ("2019 Q4",120 ), ("2019 Q4",92550)]), title: "Test", legend: "Quarterly", form: CGSize(width: UIScreen.main.bounds.width, height: 300), dropShadow: false, valueSpecifier: "%.1f EUR", cornerRadius: 0)
     }
 }
 #endif
